@@ -1,0 +1,80 @@
+#,SPC,Date,Time,Path,Path,F-Scale,Killed,Injured,County,Path
+,ID #,,(CST),Length,Width,,,,,
+,,,,(miles),(yards),,,,,
+1,51-4,4/5/1951,1322,0.2,100,F2,0,2,Grady,Bridge Creek School District (7 NNW Blanchard)
+2,51-27,6/6/1951,2350,4,450,F2,0,0,Grady,Cox City
+3,52-8,5/22/1952,2330,n/a,n/a,F1,0,0,Grady,southern part of county
+4,53-5,3/13/1953,1715,24,100,F2,0,1,Grady,Rush Springs - 6.5 SW Blanchard
+5,53-6,3/13/1953,1819,1,100,F3,1,8,Grady,Bradley
+6,53-13,4/14/1953,1850,16,440,F2,0,0,Canadian/ Grady,5 SW Yukon - 8 E Tuttle
+7,53-39,6/19/1953,1730,6,880,F1,0,0,Grady,5 SW Chickasha - SW edge of Chickasha
+8,53-48,11/18/1953,2130,0.3,n/a,F1,0,0,Grady,8 W Minco
+9,55-1,1/5/1955,500,n/a,n/a,F0,0,0,Grady,Chickasha
+10,55-26,5/25/1955,1800,n/a,n/a,F1,0,0,Grady,Near Rush Springs
+11,55-37,5/26/1955,230,n/a,n/a,F1,0,0,Grady,Near Chickasha
+12,56-20,4/28/1956,1420,35,n/a,F1,0,0,Grady/ McClain/ Cleveland,5 S Chickasha - 3 E Norman
+13,58-5,4/21/1958,1535,n/a,n/a,F0,0,0,Grady,10 N Verden
+14,58-6,4/21/1958,1605,n/a,n/a,F0,0,0,Grady,Just S of Chickasha
+15,59-50,5/22/1959,220,n/a,n/a,F2,0,0,Grady,5 W Minco
+16,60-18,4/28/1960,1945,4,200,F2,0,1,Grady,2 S Pocassett
+17,60-19,4/28/1960,1945,3,200,F2,0,0,Grady,2 NE Amber
+18,60-20,4/28/1960,1945,4,200,F3,0,2,Grady,1.5 N- 3 ENE Pocassett
+19,60-21,4/28/1960,1945,2,300,F2,0,0,Grady,Pocassett
+20,60-22,4/28/1960,2050,1.5,200,F3,0,1,Grady,Tuttle
+21,60-69,5/19/1960,1600,n/a,n/a,F1,0,0,Caddo/ Grady,N of Verden - near Dutton
+22,61-27,4/30/1961,1845,2,75,F3,0,2,Grady,2 N Minco
+23,61-58,5/16/1961,2257,n/a,n/a,F0,0,0,Grady,Near Verden
+24,65-13,04/7-8/1965,2350,22,440,F2,0,2,Caddo/ Grady,Anadarko - 3 W Amber
+25,65-14,4/8/1965,20,1,n/a,F2,0,0,Grady,3 S Tuttle
+26,65-15,4/8/1965,20,1,n/a,F2,0,0,Grady,4 S Tuttle
+27,65-16,4/8/1965,100,0.3,n/a,F1,0,0,Grady,4 S Tuttle
+28,65-53,5/26/1965,235,n/a,n/a,F1,0,0,Grady,Minco
+29,68-8,4/19/1968,1545,n/a,n/a,F1,0,0,Grady,5 NNW Blanchard
+30,68-44,6/5/1968,1818,n/a,10,F0,0,0,Grady,3 SE Verden
+31,69-10,4/26/1969,1700,10,n/a,F1,0,0,Grady,Ninnekah - Tabler
+32,69-12,5/3/1969,1400,n/a,n/a,F1,0,0,Grady,Near Verden
+33,70-6,04/29-30/1970,2225,171 *,250,F2,0,2,Jackson/ Kiowa/ Caddo/ Grady/ Canadian/ Oklahoma/ Logan/ Payne,Near Olustee - 5 S Stillwater * tornado family; not continuous path
+34,70-7,4/30/1970,100,47,500,F2,0,6,Grady/ Canadian/ Oklahoma,4 NW Pocasset - Mustang - Oklahoma City - 2 W Arcadia
+35,70-29,6/20/1970,1653,n/a,n/a,F0,0,0,Grady,NW of Tuttle
+36,73-59,6/18/1973,1900,4,50,F1,0,1,Grady,S of Rush Springs
+37,74-5,4/20/1974,1500,64,100,F3,0,3,Grady/ Canadian/ Oklahoma/ Lincoln,SW of Minco - 2 SE Mustang - S Oklahoma City - Del City - Midlothian
+38,77-5,3/2/1977,1630,5,100,F2,0,0,Grady,5 NE- 9 NE Alex
+39,77-6,3/2/1977,1630,6,100,F1,0,0,Grady/ McClain,Near Blanchard
+40,77-33,5/20/1977,1543,3,90,F1,0,0,Grady,Chickaska (near Airport)
+41,81-11,4/30/1981,2000,32,5,F1,0,0,Caddo/ Grady,Near Gracemont - Anadarko - near Rush Springs
+42,81-12,4/30/1981,2015,29,5,F2,1,4,Grady,Near Minco - Chickasha - S of Rush Springs (* not continuous track)
+43,83-1,3/3/1983,1300,0.1,20,F1,0,0,Grady,6 W Newcastle
+44,83-44,5/13/1983,2245,0.1,50,F1,0,0,Grady,6 N Chickasha
+45,83-77,6/28/1983,45,0.1,10,F0,0,0,Grady,~4 S Rush Springs
+46,90-1,3/13/1990,1644,28,200,F2,0,1,Grady/ McClain/ Cleveland,1 W Bradley- Washington- Noble- 5 NE Noble
+47,93-4,3/29/1993,2152,5,35,F1,0,0,Grady/ McClain,4 E Alex- 3 W Criner
+48,,5/25/1997,1514,2.5,75,F1,0,0,Grady,3 NE Tabler - 2.5 SSW Middleberg
+49,,10/4/1998,1754,1.5,200,F2,0,0,Grady,9 WSW - 7.5 WSW Ninnekah
+50,,10/4/1998,1915,5,100,F2,0,0,Grady/ McClain,4 NW Blanchard - 2 SSW Newcastle
+51,,5/3/1999,1646,9,880,F3,0,4,Caddo/ Grady,2 WSW Laverty - 4 S Verden - 2.5 WNW Downtown Chickasha
+52,,5/3/1999,1707,1,75,F0,0,0,Grady,5 W Downtown Chickasha
+53,,5/3/1999,1712,4,500,F2,0,4,Grady,2.5 NW Downtown Chichasha - Chickasha Airport (NW edge of Chicakasha) - 4 NNE Downtown Chickasha
+54,,5/3/1999,1726,38,1760,F5,36,583,Grady/ McClain/ Cleveland/ Oklahoma,2 SSW Amber - far N Newcastle - SW Oklahoma City - N Moore - S Del City - W Midwest City
+55,,5/3/1999,1837,2,300,F1,0,0,Grady,8 WSW - 6 WSW Minco
+56,,5/3/1999,1847,4,60,F1,0,0,Grady,5 W - 4 NW Minco
+57,,5/3/1999,1855,0.1,50,F1,0,0,Grady,5 SW Minco
+58,,5/4/2001,1805,0.2,25,F0,0,0,Grady,0.5 E Chickasha
+59,,5/4/2001,1820,0.7,50,F0,0,0,Grady,2 NNE - 3 N Amber
+60,,5/9/2003,2017,1.2,50,F0,0,0,Caddo/ Grady,1.4 NE - 2.5 ENE Cogar
+61,,5/8/2007,2154,1.5,30,EF1,0,0,Grady,2.7 SW - 2.6 W Minco
+62,,8/18/2007,1944,2,30,EF1,0,0,Grady,2.5 SSW Norge - 1.8 E Laverty
+63,,8/19/2007,132,7,75,EF1,0,0,Grady/ Canadian,1 ESE Minco - 1 N Union City
+64,,5/10/2010,1620,6,700,EF1,0,0,Stephens/ Grady,3 NE Bray - 2.5 ESE Cox City
+65,,5/24/2011,1606,33,880,EF4,1,48,Grady/ McClain/ Cleveland,2 S Chickasha - SW Oklahoma City (near SW 149th and Portland)
+66,,5/24/2011,1626,23,880,EF4,0,61,Grady/ McClain,2 W Bradley - 1 W Goldsby
+67,,5/8/2013,1918,0.1,50,EF0,0,0,Grady,4 SE Minco
+68,,5/31/2013,1845,0.2,50,EF0,0,0,Grady,2 NE Tuttle
+69,,5/6/2015,1533,10,1500,EF3,0,0,Grady,4.5 E Amber - 4 NNE Bridge Creek
+70,,5/6/2015,1548,0.3,50,EF0,0,0,Grady,5 ENE Amber
+71,,5/6/2015,1849,0.5,40,EF0,0,0,Grady,3 SE Tuttle
+72,,5/6/2015,1911,3.5,200,EF0,0,0,Grady,4 ENE Tuttle - 2 NE Bridge Creek
+73,,5/23/2015,1612,6,500,EF1,0,0,Grady,3 W - 4 NNE Pocsset
+74,,4/29/2016,1503,12,1000,EF1,0,0,Grady,8 WSW - 4 ENE Ninnekah
+75,,5/31/2016,1628,0.3,30,EFU,0,0,Grady,4 N Pocasset
+76,,5/31/2016,1628,0.7,30,EFU,0,0,Grady,3 NW Pocasset
+77,,5/31/2016,1628,0.7,30,EFU,0,0,Grady,4 W - 4 WNW Pocasset
