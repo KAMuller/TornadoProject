@@ -1,0 +1,62 @@
+#,SPC,Date,Time,Path,Path,F-Scale,Killed,Injured,County,Path
+,ID #,,(CST),Length,Width,,,,,
+,,,,(miles),(yards),,,,,
+1,53-7,3/13/1953,1845,2,100,F2,0,2,McClain,Washington
+2,53-12,4/2/1953,2158,n/a,n/a,F0,0,0,McClain,6 NW Lindsay
+3,56-20,4/28/1956,1420,35,n/a,F1,0,0,Grady/ McClain/ Cleveland,5 S Chickasha - 3 E Norman
+4,57-75,5/24/1957,1800,31,440,F2,0,0,Garvin/ McClain/ Pottawatomie,SW of Wynnewood - Wynnewood; S of Wanette - Wanette - 6 NW McComb
+5,57-78,5/24/1957,2100,n/a,n/a,F1,0,0,McClain,SW of Purcell
+6,59-66,9/3/1959,745,n/a,n/a,F0,0,0,McClain,Near Purcell
+7,60-85,5/23/1960,2030,1.5,33,F1,0,0,McClain,2 NW Newcastle
+8,61-1,2/17/1961,1630,0.5,15,F?,0,0,McClain,12 SW Purcell
+9,62-30,5/26/1962,2058,5,100,F2,0,0,McClain/ Cleveland,1 NE- ~5 E Goldsby
+10,64-5,4/3/1964,1830,n/a,n/a,F?,0,0,McClain,Near Newcastle
+11,65-9,4/5/1965,1330,n/a,n/a,F1,0,0,McClain,Near Purcell
+12,65-21,4/14/1965,1730,n/a,n/a,F0,0,0,McClain,4 NE Dibble
+13,72-29,12/29/1972,2015,15,40,F2,0,0,McClain/ Cleveland,10 SW Purcell - 4 ESE Lexington
+14,73-69,11/19/1973,1930,24,500,F3,5,46,McClain/ Cleveland/ Oklahoma,Blanchard - Moore - Del City - SE Oklahoma City
+15,77-6,3/2/1977,1630,6,100,F1,0,0,Grady/ McClain,Near Blanchard
+16,79-41,8/21/1979,1930,n/a,n/a,F0,0,0,McClain,Between Criner and Washington
+17,81-20,5/17/1981,1646,4,100,F1,0,0,McClain/ Cleveland,3 SSW Noble
+18,82-86,6/11/1982,300,1,50,F2,0,0,McClain,Old Goldsby Airport
+19,82-92,8/27/1982,1600,1,50,F2,0,0,McClain,5 N Purcell
+20,84-37,5/27/1984,1735,7,100,F0,0,0,McClain,2 SSE- 9 SE Goldsby
+21,84-38,5/27/1984,1745,6,100,F0,0,0,Cleveland/ McClain,3 S- 8 SSE Noble
+22,85-6,3/26/1985,2047,0.1,5,F1,0,0,McClain,3 SW Payne
+23,90-1,3/13/1990,1644,28,200,F2,0,1,Grady/ McClain/ Cleveland,1 W Bradley- Washington- Noble- 5 NE Noble
+24,90-3,3/13/1990,1731,18,150,F2,0,0,McClain/ Cleveland,2 W Criner- 5 SE Noble
+25,91-42,5/2/1991,1900,0.3,30,F1,0,3,McClain,Blanchard
+26,92-48,9/2/1992,1715,8,400,F2,0,1,McClain,3 SW Purcell- 3 ENE Wayne
+27,93-4,3/29/1993,2152,5,35,F1,0,0,Grady/ McClain,4 E Alex- 3 W Criner
+28,93-57,9/13/1993,1330,0.1,25,F0,0,0,McClain,1 S Criner
+29,,5/26/1996,2232,0.1,25,F0,0,0,McClain,6 S Purcell
+30,,6/6/1996,1840,0.1,10,F0,0,0,McClain,1 SE Wayne
+31,,5/25/1997,1600,6,1320,F2,0,2,McClain,7 WSW - 4 S Purcell
+32,,5/25/1997,1632,0.2,20,F0,0,0,McClain,2 NNE Wayne
+33,,10/4/1998,1915,5,100,F2,0,0,Grady/ McClain,4 NW Blanchard - 2 SSW Newcastle
+34,,10/4/1998,1926,1.5,33,F0,0,0,McClain/ Cleveland,N Newcastle - SW OKC
+35,,11/9/1998,2115,4.5,125,F1,0,0,McClain/ Cleveland,1.5 SW Purcell - Purcell - 1 NE Lexington
+36,,4/5/1999,503,3,15,F1,0,0,McClain,10 SW - 8 W Purcell
+37,,5/3/1999,1726,38,1760,F5,36,583,Grady/ McClain/ Cleveland/ Oklahoma,2 SSW Amber - far N Newcastle - SW Oklahoma City - N Moore - S Del City - W Midwest City
+38,,5/3/1999,1810,0.2,20,F0,0,0,McClain,north Newcastle
+39,,5/8/2003,1600,0.2,30,F0,0,0,McClain,N Newcastle (3.5 NNW Newcastle)
+40,,5/7/2008,1621,5,25,EF0,0,0,McClain/ Cleveland,0.5 SE Goldsby - 1.5 N Noble
+41,,4/29/2009,911,7,40,EF1,0,0,Garvin/ McClain,4 W - 5 N Stratford
+42,,5/10/2010,1636,5,880,EF1,0,0,McClain,7 WSW - 2.5 W Wayne
+43,,5/10/2010,1637,0.9,150,EF0,0,0,McClain,7 WSW - 6 W Wayne
+44,,4/22/2011,1845,0.5,150,EF0,0,0,McClain,1 WSW Byars
+45,,4/22/2011,1859,0.2,30,EF1,0,0,McClain,1 E Byars
+46,,5/24/2011,1606,33,880,EF4,1,48,Grady/ McClain/ Cleveland,2 S Chickasha - SW Oklahoma City (near SW 149th and Portland)
+47,,5/24/2011,1626,23,880,EF4,0,61,Grady/ McClain,2 W Bradley - 1 W Goldsby
+48,,5/24/2011,1645,0.7,50,EF0,0,0,McClain,2 SW Newcastle
+49,,5/24/2011,1702,0.5,40,EF1,0,0,McClain,2.5 SE Goldsby
+50,,11/7/2011,2247,1.6,110,EF1,0,0,McClain,3 NE - 4.5 NE Blanchard
+51,,4/13/2012,1459,6,600,EF1,0,20,McClain/ Cleveland,4 NNW Goldsby - Norman (just N of SW36/Lindsay - just S of NE12/Robinson)
+52,,5/20/2013,1356,14,1900,EF5,24,212,McClain/ Cleveland,Newcastle (3 NW US-277/SH-130) - 4.8 E Moore
+53,,5/6/2015,1633,1,200,EF1,0,0,McClain,2 SE Newcastle
+54,,5/19/2015,1340,0.1,20,EF0,0,0,McClain,9 W Wayne
+55,,5/19/2015,1351,0.1,20,EF0,0,0,McClain,5 SW Purcell
+56,,5/23/2015,1711,2,50,EF1,0,0,McClain,2.5 ESE - 3 NE Blanchard
+57,,5/23/2015,1730,0.5,50,EF0,0,0,McClain,1 WSW Newcastle
+58,,12/26/2015,1357,0.1,20,EF0,0,0,McClain,7 NE Byars
+59,,10/21/2017,1936,3.5,200,EF1,0,0,McClain/ Cleveland,3 NW Goldsby - 3 SSW Norman (near SH-9/Santa Fe in Newcastle to SW of SH-9/Chautauqua in Norman)
