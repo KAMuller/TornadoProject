@@ -1,3 +1,4 @@
+import pandas as py
 # data processing
 # THings to do:
 # 1) get avg values form each station per day (for the whole area) 1 vector
