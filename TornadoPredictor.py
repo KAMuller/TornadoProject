@@ -5,27 +5,28 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 # data processing
-# THings to do:
+# Things to do:
 # 1) get avg values form each station per day (for the whole area) 1 vector
 # 2) Make a list of each daily weather values
 # 3) The Training data is then the past 3 days prior. EXAMPLE: january 4th has the 1st, 2nd and 3rd.
 # 4) Class lables in a separate list
 # 5) Store The dates of the tornado
+# 6) NEED TO MAKE A TEST AND TRAIN SET
 # With Pandas, to use data frame returned by read_csv as 2d array use .values[][]
 weather_data = pd.read_csv('Weather_Data.csv', header=0, dtype={'STID': str})
 # print(weather_data.head(1))
 norm_weather_data = pd.read_csv('NORM_weather.csv', header=0, dtype={'STID': str})
 # Get the first tornado dates
 t_McClain = pd.read_csv('Tornado_McClain_Train.csv', header=None)
-tornado_dates_m = t_McClain.values[3:-1, 2:3]
+tornado_dates_m = t_McClain.values[3:len(t_McClain.values), 2:3]
 
 # Get the second tornado dates
 t_Grady = pd.read_csv('Tornado_Grady_Train.csv', header=None)
-tornado_dates_g = t_Grady.values[3:-1, 2:3]
+tornado_dates_g = t_Grady.values[3:len(t_Grady.values), 2:3]
 
 # Get the third tornado dates
 t_Cleve = pd.read_csv('Tornado_Cleveland_Train.csv', header=None)
-tornado_dates_c = t_Cleve.values[3:-1, 2:3]
+tornado_dates_c = t_Cleve.values[3:len(t_Cleve.values), 2:3]
 
 
 # combining tornado dates
@@ -119,12 +120,14 @@ for x in range(len(weather_dates)):
         hold.append(0)
         weather_train_labels.append(hold)
 tornado_count = 0
+count = 0
 for x in weather_train_labels:
+    count += 1
     if x[len(weather_train_labels[0])-1] == 1:
         tornado_count += 1
 print("There are ", tornado_count, "recorded tornadoes!")
 
-# 3 previous day predictions
+# previous day predictions NEED TO MAKE MODULAR
 predict_days = []
 pred = []
 i = 2
