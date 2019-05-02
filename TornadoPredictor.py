@@ -1,3 +1,6 @@
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neural_network import MLPClassifier
 # data processing
 # THings to do:
 # 1) get avg values form each station per day (for the whole area) 1 vector
@@ -13,8 +16,36 @@
 #################################################################################
 # classifiers
 
+# oversampling techniques
+
+# random sampling
+trainList = []
+trainClass = []
+
+n = 2
+for x in range(len(trainList)):
+    if trainClass[x] == 1:
+        for y in range(n-1):
+            trainList.append(trainList[x])
+
+def treeClassify(trainX, trainY, testX):
+    treeCLF = DecisionTreeClassifier()
+    treeCLF.fit(trainX, trainY)
+    return treeCLF.predict(testX)
 
 
+# function for naive bayes classifier, returns predicted values for textX
+def bayesClassify(trainX, trainY, testX):
+    nbCLF = GaussianNB()
+    nbCLF.fit(trainX, trainY)
+    return nbCLF.predict(testX)
+
+
+# function for neural network classifier, returns predicted values for textX
+def neuralClassify(trainX, trainY, testX):
+    nnCLF = MLPClassifier()
+    nnCLF.fit(trainX, trainY)
+    return nnCLF.predict(testX)
 
 
 
