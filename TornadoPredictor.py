@@ -121,7 +121,18 @@ for x in weather_train_labels:
         tornado_count += 1
 print("There are ", tornado_count, "recorded tornadoes!")
 
-
+# 3 previous day predictions
+predict_3_day = []
+pred = []
+i = 2
+while i < len(weather_train_labels):
+    d1 = weather_train_labels[i-2]
+    d2 = weather_train_labels[i-1]
+    d3 = weather_train_labels[i]
+    pred = [d1, d2, d3]
+    predict_3_day.append(pred)
+    i += 1
+print(len(predict_3_day))
 
 
 
