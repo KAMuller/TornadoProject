@@ -114,20 +114,20 @@ for x in range(len(weather_dates)):
     hold = []
     if weather_dates[x] in tornadoes:
         hold.append(weather_train[x])
-        hold.append('Yes')
+        hold.append(1)
         weather_train_labels.append(hold)
     else:
         hold.append(weather_train[x])
-        hold.append('No')
+        hold.append(0)
         weather_train_labels.append(hold)
 tornado_count = 0
 for x in weather_train_labels:
-    if x[len(weather_train_labels[0])-1] == 'Yes':
+    if x[len(weather_train_labels[0])-1] == 1:
         tornado_count += 1
 print("There are ", tornado_count, "recorded tornadoes!")
 
 # 3 previous day predictions
-predict_3_day = []
+predict_days = []
 pred = []
 i = 2
 while i < len(weather_train_labels):
@@ -135,10 +135,9 @@ while i < len(weather_train_labels):
     d2 = weather_train_labels[i-1]
     d3 = weather_train_labels[i]
     pred = [d1, d2, d3]
-    predict_3_day.append(pred)
+    predict_days.append(pred)
     i += 1
-print(len(predict_3_day))
-
+print(len(predict_days))
 
 
 
