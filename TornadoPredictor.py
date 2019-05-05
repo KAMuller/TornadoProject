@@ -1,11 +1,11 @@
 import pandas as pd
-import sys
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score
-from sklearn.cluster import KMeans
+from sklearn.cluster import MiniBatchKMeans
+
 # data processing
 # Things to do:
 # 1) get avg values form each station per day (for the whole area) 1 vector
@@ -229,12 +229,8 @@ testList = np.array(testList)
 print(np.shape(trainList))
 print(np.shape(testList))
 #################################################################################
-# classifiers
 
-# oversampling techniques
 
-# random sampling
-n = 2
 
 
 def multOversamp(trainL, trainC, n):
@@ -281,7 +277,7 @@ def kMeansUndersamp(trainL, trainC, frac):
     tListLen = len(trueClassList)
     currFrac = tListLen / len(falseClassList)
     while currFrac <= frac:
-        cluster = KMeans(n_clusters=int(len(falseClassList)/2), init='k-means++').fit(falseClassList)
+        cluster = MiniBatchKMeans(n_clusters=int(len(falseClassList)/2), init='k-means++', max_iter=50).fit(falseClassList)
         falseClassList = np.floor(cluster.cluster_centers_).astype(np.int)
         currFrac = tListLen / len(falseClassList)
     tTrainList = []
@@ -296,7 +292,7 @@ def kMeansUndersamp(trainL, trainC, frac):
 
 
 def treeClassify(trainX, trainY, testX):
-    treeCLF = DecisionTreeClassifier()
+    treeCLF = DecisionTreeClassifier(max_depth=5)
     treeCLF.fit(trainX, trainY)
     return treeCLF.predict(testX), treeCLF.predict_proba(testX)
 
@@ -310,20 +306,49 @@ def bayesClassify(trainX, trainY, testX):
 
 # function for neural network classifier, returns predicted values for textX
 def neuralClassify(trainX, trainY, testX):
-    nnCLF = MLPClassifier()
+    nnCLF = MLPClassifier(learning_rate='adaptive')
     nnCLF.fit(trainX, trainY)
     return nnCLF.predict(testX), nnCLF.predict_proba(testX)
 
 
-treeTestClass, treeTestClassProb = treeClassify(trainList, trainClass, testList)
-treeF1 = f1_score(testClass, treeTestClass, average='macro')
+def scoreVal(predClass, testClass):
+    torTrueC = 0
+    torTrueW = 0
+    torFalseC = 0
+    torFalseW = 0
+    for x in range(len(predClass)):
+        if predClass[x] == 1 and testClass[x] == 1:
+            torTrueC += 1
+        elif predClass[x] == 1 and testClass[x] == 0:
+            torTrueW += 1
+        elif predClass[x] == 0 and testClass[x] == 0:
+            torFalseC += 1
+        elif predClass[x] == 0 and testClass[x] == 1:
+            torFalseW += 1
+    print("torTrue correct: ", torTrueC)
+    print("torTrue wrong: ", torTrueW)
+    print("torFalse correct: ", torFalseC)
+    print("torFalse wrong: ", torFalseW)
 
+
+tTrainList = trainList.copy()
+tTrainClass = trainClass.copy()
+randOversamp(trainList, trainClass, .5)
+
+treeTestClass, treeTestClassProb = treeClassify(tTrainList, tTrainClass, testList)
+treeF1 = f1_score(testClass, treeTestClass, average='macro')
+print(treeF1)
+scoreVal(treeTestClass, testClass)
 bayesTestClass, bayesTestClassProb = bayesClassify(trainList, trainClass, testList)
 bayesF1 = f1_score(testClass, bayesTestClass, average='macro')
+print(bayesF1)
+scoreVal(bayesTestClass, testClass)
+
 
 nnTestClass, nnTestClassProb = neuralClassify(trainList, trainClass, testList)
 nnF1 = f1_score(testClass, nnTestClass, average='macro')
-
+print(nnF1)
+scoreVal(nnTestClass, testClass)
 if treeF1 > bayesF1 and treeF1 > nnF1:
     predClass = treeTestClass
     predClassProb = treeTestClassProb
@@ -333,9 +358,6 @@ elif bayesF1 > nnF1:
 else:
     predClass = nnTestClass
     predClassProb = nnTestClassProb
-
-print(predClass)
-print(predClassProb)
 
 
 
