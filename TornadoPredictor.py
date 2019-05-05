@@ -28,12 +28,12 @@ tornado_dates_g = t_Grady.values[3:len(t_Grady.values), 2:3]
 
 # Get the third tornado dates
 t_Cleve = pd.read_csv('Tornado_Cleveland_Train.csv', header=None)
-tornado_dates_c = t_Cleve.values[3:len(t_Cleve.values), 2:3]
+tornado_dates_c = t_Cleve.values[3: len(t_Cleve.values), 2:3]
 
 # TO do list: 3 lists, make the day predictor
 # train_list, vectors, remove the test subset
 # train_class for each vector (yes or no)
-#test_list a subset of a list of vector's 1 year vectors
+# test_list a subset of a list of vector's 1 year vectors
 # combining tornado dates
 tornadoes = []
 for x in tornado_dates_m:
@@ -51,6 +51,7 @@ print("There are: ", len(tornadoes), "tornadoes.")
 # Combining Weather data
 weather_vectors = []
 weather_dates = []
+test_list = []
 weather = weather_data.values.tolist()
 norm_weather = norm_weather_data.values.tolist()
 for x in weather:
@@ -60,7 +61,10 @@ for x in weather:
     date = str(month) + '/' + str(day) + '/' + str(year)
     if date not in weather_dates:
         weather_dates.append(date)
-    weather_vectors.append(x[4:-1])
+    if year == 2015:
+        test_list.append(x[4:len(x)])
+    else:
+        weather_vectors.append(x[4:len(x)])
 
 nan_count = 0
 i = 0
@@ -74,7 +78,17 @@ for x in weather_vectors:
     if nan_count == len(x):
         weather_vectors[i-1] = 0
 # print(weather_vectors[:5])
+# removing bad data form the test list
 i = 0
+for x in test_list:
+    i += 1
+    nan_count = 0
+    for y in range(len(test_list[0])):
+        if x[y] < -1:
+            x[y] = -1
+print(test_list[:5])
+i = 0
+# cleaning up the NORM weather data
 for x in norm_weather:
     i += 1
     nan_count = 0
@@ -102,6 +116,8 @@ while i < len(weather_vectors):
     v2 = weather_vectors[i+1]
     v3 = weather_vectors[i+2]
     hold = [v1, v2, v3]
+    print(hold)
+    hold = np.array(hold)
     new_vector = np.mean(hold, axis=0)
     new_vector = np.round(new_vector, decimals=4)
     weather_train.append(new_vector)
@@ -112,18 +128,8 @@ print("There are: ", len(weather_train), "vectors.")
 
 # Assign Labels
 print("There are: ", len(weather_dates), "dates.")
-weather_train_labels = []
-hold = []
-for x in range(len(weather_dates)):
-    hold = []
-    if weather_dates[x] in tornadoes:
-        hold.append(weather_train[x])
-        hold.append(1)
-        weather_train_labels.append(hold)
-    else:
-        hold.append(weather_train[x])
-        hold.append(0)
-        weather_train_labels.append(hold)
+train_labels = []
+
 tornado_count = 0
 count = 0
 for x in weather_train_labels:
