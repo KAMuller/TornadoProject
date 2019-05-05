@@ -35,6 +35,22 @@ tornado_dates_c = t_Cleve.values[3: len(t_Cleve.values), 2:3]
 # train_class for each vector (yes or no)
 # test_list a subset of a list of vector's 1 year vectors
 # combining tornado dates
+
+def nDayVects(n, vectorList, labels):
+    nDaysVectors = []
+    nDaysClass = []
+    hold = []
+    for x in range(len(vectorList) - n):
+        i = 1
+        hold = vectorList[x + n - i]
+        while i < n:
+            i += 1
+            hold = np.concatenate([hold, vectorList[x + n - i]])
+        nDaysVectors.append(hold)
+        nDaysClass.append(labels[ x + n])
+    return nDaysVectors, nDaysClass
+
+# combining tornado dates
 tornadoes = []
 for x in tornado_dates_m:
     if x not in tornadoes:
@@ -47,25 +63,38 @@ for x in tornado_dates_c:
         tornadoes.append(x)
 tornadoes = np.array(tornadoes)
 print("There are: ", len(tornadoes), "tornadoes.")
-
 # Combining Weather data
+test_dates = []
+test_list = []
 weather_vectors = []
 weather_dates = []
-test_list = []
 weather = weather_data.values.tolist()
 norm_weather = norm_weather_data.values.tolist()
+print(len(weather))
 for x in weather:
     year = x[0]
     month = x[1]
     day = x[2]
     date = str(month) + '/' + str(day) + '/' + str(year)
-    if date not in weather_dates:
+    if (date not in weather_dates) and date not in test_dates:
+        # if year == 2015:
+        #     test_dates.append(date)
         weather_dates.append(date)
-    if year == 2015:
-        test_list.append(x[4:len(x)])
-    else:
-        weather_vectors.append(x[4:len(x)])
+    # if year == 2015:
+    #     test_list.append(x[4:len(x)])
+    weather_vectors.append(x[4:len(x)])
+print(len(weather_vectors))
 
+# get the class labels
+labels = []
+for x in range(len(weather_dates)):
+    if weather_dates[x] in tornadoes:
+        labels.append(1)
+    else:
+        labels.append(0)
+print("labels length is: ", len(labels))
+
+# cleaning weather vectors
 nan_count = 0
 i = 0
 for x in weather_vectors:
@@ -77,18 +106,9 @@ for x in weather_vectors:
             x[y] = -1
     if nan_count == len(x):
         weather_vectors[i-1] = 0
-# print(weather_vectors[:5])
-# removing bad data form the test list
+print(weather_vectors[1])
+# cleaning up norm data
 i = 0
-for x in test_list:
-    i += 1
-    nan_count = 0
-    for y in range(len(test_list[0])):
-        if x[y] < -1:
-            x[y] = -1
-print(test_list[:5])
-i = 0
-# cleaning up the NORM weather data
 for x in norm_weather:
     i += 1
     nan_count = 0
@@ -100,13 +120,14 @@ for x in norm_weather:
     if nan_count == len(x):
         norm_weather[i-1] = 0
 # print("Norm Weather is: ", norm_weather[:5], '\n')
+#combining Norm data with the rest of the weather data
 count = 0
 for x in range(len(weather_vectors)):
     if weather_vectors[x] == 0:
         newline = norm_weather[count]
-        weather_vectors[x] = newline[4:-1]
+        weather_vectors[x] = newline[4:len(newline)]
         count += 1
-# print("The complete weather is: ", weather_vectors[:5])
+print("The complete weather is: ", weather_vectors[:3])
 # Combining weather vectors
 weather_train = []
 hold = []
@@ -116,54 +137,103 @@ while i < len(weather_vectors):
     v2 = weather_vectors[i+1]
     v3 = weather_vectors[i+2]
     hold = [v1, v2, v3]
-    print(hold)
-    hold = np.array(hold)
+    for x in range(len(hold[0])):
+        if hold[0][x] == -1:
+            if hold[1][x] != -1:
+                hold[0][x] = hold[1][x]
+            elif hold[2][x] != -1:
+                hold[0][x] = hold[2][x]
+        if hold[1][x] == -1:
+            if hold[0][x] != -1:
+                hold[1][x] = hold[0][x]
+            elif hold[2][x] != -1:
+                hold[1][x] = hold[2][x]
+        if hold[2][x] == -1:
+            if hold[1][x] != -1:
+                hold[2][x] = hold[1][x]
+            elif hold[0][x] != -1:
+                hold[2][x] = hold[0][x]
     new_vector = np.mean(hold, axis=0)
     new_vector = np.round(new_vector, decimals=4)
     weather_train.append(new_vector)
     i += 3
 weather_train = np.array(weather_train)
+print("Average Weather is: ", weather_train[0])
+
+weather_test = []
+hold = []
+i = 0
+while i < len(test_list):
+    v1 = test_list[i]
+    v2 = test_list[i+1]
+    v3 = test_list[i+2]
+    hold = [v1, v2, v3]
+    for x in range(len(hold[0])):
+        if hold[0][x] == -1:
+            if hold[1][x] != -1:
+                hold[0][x] = hold[1][x]
+            elif hold[2][x] != -1:
+                hold[0][x] = hold[2][x]
+        if hold[1][x] == -1:
+            if hold[0][x] != -1:
+                hold[1][x] = hold[0][x]
+            elif hold[2][x] != -1:
+                hold[1][x] = hold[2][x]
+        if hold[2][x] == -1:
+            if hold[1][x] != -1:
+                hold[2][x] = hold[1][x]
+            elif hold[0][x] != -1:
+                hold[2][x] = hold[0][x]
+    new_vector = np.mean(hold, axis=0)
+    new_vector = np.round(new_vector, decimals=4)
+    weather_test.append(new_vector)
+    i += 3
+weather_test = np.array(weather_test)
+weather_vectors = weather_train
 # print(weather_train[:2])
-print("There are: ", len(weather_train), "vectors.")
-
+print("There are: ", len(weather_vectors), " training vectors.")
+print("There are: ", len(weather_vectors[0]), "parameters.")
+print(len(weather_train) + len(weather_test))
 # Assign Labels
-print("There are: ", len(weather_dates), "dates.")
-train_labels = []
+print("There are: ", len(weather_dates) + len(test_dates), "dates.")
 
-tornado_count = 0
-count = 0
-for x in weather_train_labels:
-    count += 1
-    if x[len(weather_train_labels[0])-1] == 1:
-        tornado_count += 1
-print("There are ", tornado_count, "recorded tornadoes!")
+################################
+n = 3
+################################
 
-# previous day predictions NEED TO MAKE MODULAR
-predict_days = []
-pred = []
-i = 2
-while i < len(weather_train_labels):
-    d1 = weather_train_labels[i-2]
-    d2 = weather_train_labels[i-1]
-    d3 = weather_train_labels[i]
-    pred = [d1, d2, d3]
-    predict_days.append(pred)
-    i += 1
-print(len(predict_days))
+# call the function for n days
+nVector_data, class_list = nDayVects(n, weather_vectors, labels)
+print("train data is length: ", len(nVector_data))
 
+weather_dates = weather_dates[n:len(weather_dates)]
 
+trainList = []
+trainClass = []
+testList = []
+testClass = []
 
+dateCheck = False
+for x in range(len(nVector_data)):
+    if "2015" in weather_dates[x]:
+        dateCheck = True
+    if "2016" in weather_dates[x]:
+        dateCheck = False
+    if dateCheck:
+        testList.append(nVector_data[x])
+        testClass.append(labels[x])
+    else:
+        trainList.append(nVector_data[x])
+        trainClass.append(labels[x])
+trainList = np.array(trainList)
+testList = np.array(testList)
+print(np.shape(trainList))
+print(np.shape(testList))
 #################################################################################
 # classifiers
 
 # oversampling techniques
 
 # random sampling
-trainList = []
-trainClass = []
-testList = []
-testClass = []
-
 n = 2
 
 
