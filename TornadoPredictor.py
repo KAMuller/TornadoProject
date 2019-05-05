@@ -28,7 +28,10 @@ tornado_dates_g = t_Grady.values[3:len(t_Grady.values), 2:3]
 t_Cleve = pd.read_csv('Tornado_Cleveland_Train.csv', header=None)
 tornado_dates_c = t_Cleve.values[3:len(t_Cleve.values), 2:3]
 
-
+# TO do list: 3 lists, make the day predictor
+# train_list, vectors, remove the test subset
+# train_class for each vector (yes or no)
+#test_list a subset of a list of vector's 1 year vectors
 # combining tornado dates
 tornadoes = []
 for x in tornado_dates_m:
