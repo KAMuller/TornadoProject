@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import f1_score
+from sklearn.cluster import KMeans
 # data processing
 # Things to do:
 # 1) get avg values form each station per day (for the whole area) 1 vector
@@ -153,31 +155,111 @@ print(len(predict_days))
 # random sampling
 trainList = []
 trainClass = []
+testList = []
+testClass = []
 
 n = 2
-for x in range(len(trainList)):
-    if trainClass[x] == 1:
-        for y in range(n-1):
-            trainList.append(trainList[x])
+
+
+def multOversamp(trainL, trainC, n):
+    global trainList
+    for x in range(len(trainL)):
+        if trainC[x] == 1:
+            for y in range(n-1):
+                # print(trainList)
+                trainList = np.append(trainList, [trainList[x]], axis=0)
+                trainClass.append(1)
+
+
+np.random.seed(100)
+
+
+def randOversamp(trainL, trainC, frac):
+    global trainList
+    trueClassList = []
+    falseCalssList = []
+    for x in range(len(trainC)):
+        if trainC[x] == 1:
+            trueClassList.append(trainL[x])
+        else:
+            falseCalssList.append(trainL[x])
+    trueLen = len(trueClassList)
+    tListLen = len(trueClassList)
+    currFrac = tListLen/len(falseCalssList)
+    while currFrac <= frac:
+        index = np.random.randint(0, trueLen)
+        trainList = np.append(trainList, [trueClassList[index]], axis=0)
+        trainClass.append(1)
+        tListLen += 1
+        currFrac = tListLen / len(falseCalssList)
+
+def kMeansUndersamp(trainL, trainC, frac):
+    global trainList
+    trueClassList = []
+    falseClassList = []
+    for x in range(len(trainC)):
+        if trainC[x] == 1:
+            trueClassList.append(trainL[x])
+        else:
+            falseClassList.append(trainL[x])
+    tListLen = len(trueClassList)
+    currFrac = tListLen / len(falseClassList)
+    while currFrac <= frac:
+        cluster = KMeans(n_clusters=int(len(falseClassList)/2), init='k-means++').fit(falseClassList)
+        falseClassList = np.floor(cluster.cluster_centers_).astype(np.int)
+        currFrac = tListLen / len(falseClassList)
+    tTrainList = []
+    trainClass.clear()
+    for x in range(len(falseClassList)):
+        tTrainList.append(falseClassList[x])
+        trainClass.append(0)
+    for x in range(len(trueClassList)):
+        tTrainList.append(trueClassList[x])
+        trainClass.append(1)
+    trainList = np.array(tTrainList).astype(np.int)
+
 
 def treeClassify(trainX, trainY, testX):
     treeCLF = DecisionTreeClassifier()
     treeCLF.fit(trainX, trainY)
-    return treeCLF.predict(testX)
+    return treeCLF.predict(testX), treeCLF.predict_proba(testX)
 
 
 # function for naive bayes classifier, returns predicted values for textX
 def bayesClassify(trainX, trainY, testX):
     nbCLF = GaussianNB()
     nbCLF.fit(trainX, trainY)
-    return nbCLF.predict(testX)
+    return nbCLF.predict(testX), nbCLF.predict_proba(testX)
 
 
 # function for neural network classifier, returns predicted values for textX
 def neuralClassify(trainX, trainY, testX):
     nnCLF = MLPClassifier()
     nnCLF.fit(trainX, trainY)
-    return nnCLF.predict(testX)
+    return nnCLF.predict(testX), nnCLF.predict_proba(testX)
+
+
+treeTestClass, treeTestClassProb = treeClassify(trainList, trainClass, testList)
+treeF1 = f1_score(testClass, treeTestClass, average='macro')
+
+bayesTestClass, bayesTestClassProb = bayesClassify(trainList, trainClass, testList)
+bayesF1 = f1_score(testClass, bayesTestClass, average='macro')
+
+nnTestClass, nnTestClassProb = neuralClassify(trainList, trainClass, testList)
+nnF1 = f1_score(testClass, nnTestClass, average='macro')
+
+if treeF1 > bayesF1 and treeF1 > nnF1:
+    predClass = treeTestClass
+    predClassProb = treeTestClassProb
+elif bayesF1 > nnF1:
+    predClass = bayesTestClass
+    predClassProb = bayesTestClassProb
+else:
+    predClass = nnTestClass
+    predClassProb = nnTestClassProb
+
+print(predClass)
+print(predClassProb)
 
 
 
