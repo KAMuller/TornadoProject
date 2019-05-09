@@ -1,10 +1,13 @@
+# CS 484 Final Project
+# by Kalman Muller and Jonathan Barker
 import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import ComplementNB
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score
 from sklearn.cluster import MiniBatchKMeans
+from sklearn. ensemble import RandomForestClassifier
 
 # data processing
 # Things to do:
@@ -229,10 +232,16 @@ testList = np.array(testList)
 print(np.shape(trainList))
 print(np.shape(testList))
 #################################################################################
+# code used to create the sample weights used in calculating the F1 scores
+sampleWeights = []
+for line in testClass:
+    if line == 0:
+        sampleWeights.append(1)
+    else:
+        sampleWeights.append(70)
 
 
-
-
+# duplicating values oversampling function
 def multOversamp(trainL, trainC, n):
     global trainList
     for x in range(len(trainL)):
@@ -243,11 +252,10 @@ def multOversamp(trainL, trainC, n):
                 trainClass.append(1)
 
 
-np.random.seed(100)
-
-
+# random oversampling with replacement function
 def randOversamp(trainL, trainC, frac):
     global trainList
+    np.random.seed(100)
     trueClassList = []
     falseCalssList = []
     for x in range(len(trainC)):
@@ -265,6 +273,8 @@ def randOversamp(trainL, trainC, frac):
         tListLen += 1
         currFrac = tListLen / len(falseCalssList)
 
+
+# k means undersampling function
 def kMeansUndersamp(trainL, trainC, frac):
     global trainList
     trueClassList = []
@@ -291,26 +301,34 @@ def kMeansUndersamp(trainL, trainC, frac):
     trainList = np.array(tTrainList).astype(np.int)
 
 
+# function for the decision tree classifier, returns predicted values for textX
 def treeClassify(trainX, trainY, testX):
-    treeCLF = DecisionTreeClassifier(max_depth=5)
+    treeCLF = DecisionTreeClassifier(max_depth=5, max_features=17, random_state=97)
     treeCLF.fit(trainX, trainY)
     return treeCLF.predict(testX), treeCLF.predict_proba(testX)
 
 
 # function for naive bayes classifier, returns predicted values for textX
 def bayesClassify(trainX, trainY, testX):
-    nbCLF = GaussianNB()
-    nbCLF.fit(trainX, trainY)
+    nbCLF = ComplementNB(alpha=44.5, norm=False)
+    nbCLF.fit(np.absolute(trainX), trainY)
     return nbCLF.predict(testX), nbCLF.predict_proba(testX)
 
 
 # function for neural network classifier, returns predicted values for textX
 def neuralClassify(trainX, trainY, testX):
-    nnCLF = MLPClassifier(learning_rate='adaptive')
+    nnCLF = MLPClassifier(learning_rate='adaptive', random_state=29)
     nnCLF.fit(trainX, trainY)
     return nnCLF.predict(testX), nnCLF.predict_proba(testX)
 
 
+# function for random forest classifier, returns predicted values for textX
+def forestClassify(trainX, trainY, testX):
+    forestCLF = RandomForestClassifier(n_estimators=5)
+    forestCLF.fit(trainX, trainY)
+    return forestCLF.predict(testX), forestCLF.predict_proba(testX)
+
+# function that prints the correctly and incorrectly classified classes from the predicted classes
 def scoreVal(predClass, testClass):
     torTrueC = 0
     torTrueW = 0
@@ -330,26 +348,52 @@ def scoreVal(predClass, testClass):
     print("torFalse correct: ", torFalseC)
     print("torFalse wrong: ", torFalseW)
 
+# code used to chose the parameter values for the classifiers
 
-tTrainList = trainList.copy()
-tTrainClass = trainClass.copy()
-randOversamp(trainList, trainClass, .5)
+# params = []
+# for x in range(2000):
+#     params.append(x/2)
+# paramScores = []
+# for x, param in enumerate(params):
+#     tuneclassifer = ComplementNB(alpha=param)
+#     tuneclassifer.fit(np.absolute(trainList), trainClass)
+#     out = tuneclassifer.predict(testList)
+#     paramScores.append(f1_score(testClass, out, average='macro', sample_weight=sampleWeights))
+#     print(x)
+# bestScore = 0
+# for x, line in enumerate(paramScores):
+#     if line > bestScore:
+#         bestScore = line
+#         print(line, x)
 
-treeTestClass, treeTestClassProb = treeClassify(tTrainList, tTrainClass, testList)
-treeF1 = f1_score(testClass, treeTestClass, average='macro')
+# finds the predicted classes from each classifier and prints their f1 score and scoreVal()
+print("forest")
+forestTestClass, forestTestClassProb = forestClassify(trainList, trainClass, testList)
+forestF1 = f1_score(testClass, forestTestClass, average='macro', sample_weight=sampleWeights)
+print(forestF1)
+scoreVal(forestTestClass, testClass)
+print("tree")
+treeTestClass, treeTestClassProb = treeClassify(trainList, trainClass, testList)
+treeF1 = f1_score(testClass, treeTestClass, average='macro', sample_weight=sampleWeights)
 print(treeF1)
 scoreVal(treeTestClass, testClass)
+print("bayes")
 bayesTestClass, bayesTestClassProb = bayesClassify(trainList, trainClass, testList)
-bayesF1 = f1_score(testClass, bayesTestClass, average='macro')
+bayesF1 = f1_score(testClass, bayesTestClass, average='macro', sample_weight=sampleWeights)
 print(bayesF1)
 scoreVal(bayesTestClass, testClass)
-
-
+print("Predictron")
+randOversamp(trainList, trainClass, .5)
 nnTestClass, nnTestClassProb = neuralClassify(trainList, trainClass, testList)
-nnF1 = f1_score(testClass, nnTestClass, average='macro')
+nnF1 = f1_score(testClass, nnTestClass, average='macro', sample_weight=sampleWeights)
 print(nnF1)
 scoreVal(nnTestClass, testClass)
-if treeF1 > bayesF1 and treeF1 > nnF1:
+
+# determines the most accurate predicted classes based on the f1 score
+if forestF1 > treeF1 and forestF1 > bayesF1 and forestF1 > nnF1:
+    predClass = forestTestClass
+    predClassProb = forestTestClass
+elif treeF1 > bayesF1 and treeF1 > nnF1:
     predClass = treeTestClass
     predClassProb = treeTestClassProb
 elif bayesF1 > nnF1:
@@ -359,9 +403,5 @@ else:
     predClass = nnTestClass
     predClassProb = nnTestClassProb
 
-
-
-
-
-
-
+print("final prediction classes")
+print(predClass)
